@@ -8,6 +8,7 @@ export default function Home() {
   const [downloading, setDownloading] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [previewing, setPreviewing] = useState(null);
 
   const search = async () => {
     setLoading(true);
@@ -80,10 +81,42 @@ export default function Home() {
                 key={v.videoId}
                 className="bg-white rounded-xl shadow-lg flex flex-col sm:flex-row items-center gap-4 sm:gap-6 p-3 sm:p-4 hover:shadow-2xl transition-shadow"
               >
-                <img src={v.thumbnail} width={240} height={136} alt="thumbnail" className="rounded-lg shadow w-full sm:w-[120px] h-auto object-cover" />
+                {previewing === v.videoId ? (
+                  <div className="w-full flex flex-col items-center">
+                    <div className="w-full aspect-video max-w-[400px] mb-2">
+                      <iframe
+                        width="100%"
+                        height="225"
+                        src={`https://www.youtube.com/embed/${v.videoId}?autoplay=1`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="rounded-lg w-full h-full"
+                      ></iframe>
+                    </div>
+                    <button
+                      className="mb-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                      onClick={() => setPreviewing(null)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <img src={v.thumbnail} width={240} height={136} alt="thumbnail" className="rounded-lg shadow w-full sm:w-[120px] h-auto object-cover" />
+                  </>
+                )}
                 <div className="flex-1 w-full">
                   <div className="font-semibold text-base sm:text-lg mb-2 line-clamp-2 text-center sm:text-left">{v.title}</div>
-                  <div className="flex justify-center sm:justify-start">
+                  <div className="flex flex-col sm:flex-row gap-2 justify-center sm:justify-start">
+                    <button
+                      className="bg-gradient-to-r from-yellow-400 to-pink-500 text-white px-3 py-2 rounded-lg font-semibold shadow hover:scale-105 transition-all text-sm sm:text-base"
+                      onClick={() => setPreviewing(v.videoId)}
+                      disabled={previewing === v.videoId}
+                    >
+                      Play
+                    </button>
                     <button
                       className="bg-gradient-to-r from-green-400 to-blue-500 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg font-semibold shadow hover:scale-105 transition-all text-sm sm:text-base"
                       onClick={() => download(v.videoId, v.title)}
