@@ -2,6 +2,7 @@ import { exec } from 'child_process';
 import path from 'path';
 import fs from 'fs';
 
+export const dynamic = 'force-dynamic';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
