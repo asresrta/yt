@@ -15,7 +15,7 @@ RUN ln -s /usr/local/bin/yt-dlp /app/yt-dlp
 
 # Copy package files and install dependencies
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
 # Copy the rest of the app
 COPY . .

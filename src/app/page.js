@@ -76,9 +76,9 @@ export default function Home() {
       <main className="flex-1 flex flex-col items-center w-full">
         <div className="w-full px-4 sm:px-8">
           <div className="max-w-2xl mx-auto w-full">
-            <div className="flex flex-row gap-2 mb-8 justify-center">
+            <div className="flex flex-col sm:flex-row gap-2 mb-8 justify-center">
               <input
-                className="flex-1 rounded-full px-5 py-3 text-lg bg-[#23232b] dark:bg-[#23232b] text-white dark:text-white border-none focus:ring-2 focus:ring-pink-400 shadow-lg placeholder:text-gray-400 outline-none"
+                className="flex-1 rounded-full px-4 py-3 text-base sm:text-lg bg-[#23232b] dark:bg-[#23232b] text-white dark:text-white border-none focus:ring-2 focus:ring-pink-400 shadow-lg placeholder:text-gray-400 outline-none"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
                 placeholder="Search YouTube videos..."
@@ -86,7 +86,7 @@ export default function Home() {
                 disabled={loading}
               />
               <button
-                className="bg-gradient-to-r from-yellow-400 to-pink-400 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-all text-lg"
+                className="w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-pink-400 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-all text-base sm:text-lg"
                 onClick={search}
                 disabled={loading}
               >
@@ -100,9 +100,9 @@ export default function Home() {
             </div>
           </div>
           {error && <div className="text-red-500 mb-4 text-center text-base">{error}</div>}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 w-full">
             {results.map(v => (
-              <div key={v.videoId} className="flex flex-col items-center bg-[#23232b] border-2 border-[#393943] rounded-xl shadow p-4 w-full h-full">
+              <div key={v.videoId} className="flex flex-col items-center bg-[#23232b] border-2 border-[#393943] rounded-xl shadow p-3 sm:p-4 w-full h-full">
                 {previewing === v.videoId ? (
                   <div className="w-full mb-3">
                     <div className="aspect-video w-full mb-3 h-40">
@@ -127,18 +127,18 @@ export default function Home() {
                 ) : (
                   <img src={v.thumbnail} width={240} height={136} alt="thumbnail" className="w-full h-40 object-cover rounded-lg border-2 border-[#393943] mb-3" />
                 )}
-                <div className="font-bold text-lg text-white text-center mb-1 leading-tight">{v.title}</div>
-                <div className="text-base text-gray-300 text-center mb-3">{v.channelTitle}</div>
-                <div className="flex flex-row gap-2 w-full mt-auto">
+                <div className="font-bold text-base sm:text-lg text-white text-center mb-1 leading-tight">{v.title}</div>
+                <div className="text-sm sm:text-base text-gray-300 text-center mb-3">{v.channelTitle}</div>
+                <div className="flex flex-col sm:flex-row gap-2 w-full mt-auto">
                   <button
-                    className="flex-1 py-2 text-base rounded-full font-semibold bg-gradient-to-r from-yellow-400 to-pink-400 text-white"
+                    className="w-full sm:w-auto py-2 text-base rounded-full font-semibold bg-gradient-to-r from-yellow-400 to-pink-400 text-white"
                     onClick={() => setPreviewing(v.videoId)}
                     disabled={previewing === v.videoId}
                   >
                     Play
                   </button>
                   <button
-                    className="flex-1 py-2 text-base rounded-full font-semibold border-2 border-yellow-400 text-yellow-300 bg-transparent"
+                    className="w-full sm:w-auto py-2 text-base rounded-full font-semibold border-2 border-yellow-400 text-yellow-300 bg-transparent"
                     onClick={() => download(v.videoId, v.title)}
                     disabled={downloading === v.videoId}
                   >
