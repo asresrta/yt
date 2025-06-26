@@ -18,7 +18,7 @@ export async function GET(request) {
 
   return new Promise((resolve) => {
     exec(
-      `yt-dlp -x --audio-format mp3 -o "${filepath}" "${url}"`,
+      `./yt-dlp -x --audio-format mp3 -o "${filepath}" "${url}"`,
       async (error) => {
         if (error) {
           resolve(new Response(JSON.stringify({ error: 'Download failed' }), { status: 500 }));
